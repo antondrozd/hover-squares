@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ModeSelect from '../mode-select/mode-select.component'
-import Grid from '../grid/grid.components'
+import Grid from '../grid/grid.component'
 import {
   selectError,
   selectIsLoading,
