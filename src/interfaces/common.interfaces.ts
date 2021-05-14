@@ -1,8 +1,11 @@
 import { Store } from '../redux/store'
 import {
-  FETCH_GAME_MODES_REQUEST,
-  FETCH_GAME_MODES_SUCCESS,
-  FETCH_GAME_MODES_FAILURE,
+  FETCH_MODES_REQUEST,
+  FETCH_MODES_SUCCESS,
+  FETCH_MODES_FAILURE,
+  SET_MODE,
+  TOGGLE_START,
+  TOGGLE_CELL_ACTIVE,
 } from '../redux/actions'
 
 export interface IStore extends Store {}
@@ -11,26 +14,46 @@ export interface TypedAction<T extends string> {
   type: T
 }
 
-export interface IGameModes {
+export interface IModes {
   [key: string]: {
-    fields: number
+    field: number
   }
 }
 
-export interface IActionFetchGameModesRequest
-  extends TypedAction<typeof FETCH_GAME_MODES_REQUEST> {}
-
-export interface IActionFetchGameModesSuccess
-  extends TypedAction<typeof FETCH_GAME_MODES_SUCCESS> {
-  payload: IGameModes
+export interface ICell {
+  row: number
+  col: number
+  active: boolean
 }
 
-export interface IActionFetchGameModesFailure
-  extends TypedAction<typeof FETCH_GAME_MODES_FAILURE> {
+export interface IActionFetchModesRequest
+  extends TypedAction<typeof FETCH_MODES_REQUEST> {}
+
+export interface IActionFetchModesSuccess
+  extends TypedAction<typeof FETCH_MODES_SUCCESS> {
+  payload: IModes
+}
+
+export interface IActionFetchModesFailure
+  extends TypedAction<typeof FETCH_MODES_FAILURE> {
   payload: Error
 }
 
+export interface IActionSetMode extends TypedAction<typeof SET_MODE> {
+  payload: { gridSize: number }
+}
+
+export interface IActionStart extends TypedAction<typeof TOGGLE_START> {}
+
+export interface IActionToogleCell
+  extends TypedAction<typeof TOGGLE_CELL_ACTIVE> {
+  payload: Pick<ICell, 'row' | 'col'>
+}
+
 export type IActions =
-  | IActionFetchGameModesRequest
-  | IActionFetchGameModesSuccess
-  | IActionFetchGameModesFailure
+  | IActionFetchModesRequest
+  | IActionFetchModesSuccess
+  | IActionFetchModesFailure
+  | IActionSetMode
+  | IActionStart
+  | IActionToogleCell

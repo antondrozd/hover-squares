@@ -1,11 +1,11 @@
-import { IGameModes } from './interfaces/common.interfaces'
+import { IModes } from './interfaces/common.interfaces'
 
 class API {
   private _apiBase = 'https://demo1030918.mockable.io/'
 
-  async getGameModes() {
+  async getModes() {
     const response = await fetch(this._apiBase)
-    const modes: IGameModes = await response.json()
+    const modes: IModes = await response.json()
 
     return modes
   }

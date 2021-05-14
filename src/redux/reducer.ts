@@ -1,36 +1,65 @@
 import {
-  FETCH_GAME_MODES_SUCCESS,
-  FETCH_GAME_MODES_FAILURE,
+  FETCH_MODES_REQUEST,
+  FETCH_MODES_SUCCESS,
+  FETCH_MODES_FAILURE,
+  SET_MODE,
+  TOGGLE_START,
+  TOGGLE_CELL_ACTIVE,
 } from '../redux/actions'
+import { toggleGridCell, computeEmptyGrid } from '../utils'
 
-import { IActions, IGameModes } from '../interfaces/common.interfaces'
+import { IActions, ICell, IModes } from '../interfaces/common.interfaces'
 
 interface IState {
-  gameModes: IGameModes | null
-  currentGameMode: string | null
-  grid: []
+  modes: IModes | null
+  grid: ICell[]
+  isStarted: boolean
+  isLoading: boolean
   error: Error | null
 }
 
 const initialState: IState = {
-  gameModes: null,
-  currentGameMode: null,
+  modes: null,
   grid: [],
+  isStarted: false,
+  isLoading: true,
   error: null,
 }
 
 const rootReducer = (state = initialState, action: IActions): IState => {
   switch (action.type) {
-    case FETCH_GAME_MODES_SUCCESS:
+    case FETCH_MODES_REQUEST:
       return {
         ...state,
-        gameModes: action.payload,
+        isLoading: true,
         error: null,
       }
-    case FETCH_GAME_MODES_FAILURE:
+    case FETCH_MODES_SUCCESS:
+      return {
+        ...state,
+        modes: action.payload,
+        isLoading: false,
+        error: null,
+      }
+    case FETCH_MODES_FAILURE:
       return {
         ...state,
         error: action.payload,
+      }
+    case SET_MODE:
+      return {
+        ...state,
+        grid: computeEmptyGrid(action.payload.gridSize),
+      }
+    case TOGGLE_START:
+      return {
+        ...state,
+        isStarted: !state.isStarted,
+      }
+    case TOGGLE_CELL_ACTIVE:
+      return {
+        ...state,
+        grid: toggleGridCell(state.grid, action.payload),
       }
     default:
       return state
