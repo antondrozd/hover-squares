@@ -5,6 +5,8 @@ import { selectIsStarted } from '../../redux/selectors'
 
 import { ICell } from '../../interfaces/common.interfaces'
 
+import { StyledCell } from './cell.styled'
+
 interface IProps extends ICell {}
 
 const Cell = ({ row, col, active }: IProps) => {
@@ -17,18 +19,7 @@ const Cell = ({ row, col, active }: IProps) => {
     }
   }
 
-  return (
-    <span
-      style={{
-        cursor: 'default',
-        backgroundColor: active ? 'blue' : 'transparent',
-      }}
-      className="cell"
-      onMouseEnter={handleHover}
-    >
-      Cell: {row} {col}
-    </span>
-  )
+  return <StyledCell active={active} onMouseEnter={handleHover} />
 }
 
 export default Cell

@@ -2,18 +2,22 @@ import { useSelector } from 'react-redux'
 
 import { selectActiveCells } from '../../redux/selectors'
 
+import { LogList, Message, Header } from './logger.styled'
+
 const Logger = () => {
   const activeCells = useSelector(selectActiveCells)
 
   return (
-    <>
-      <h2>Hover (active) squares:</h2>
-      {activeCells.map(({ row, col }) => (
-        <span>
-          row {row} col {col}
-        </span>
-      ))}
-    </>
+    <div>
+      <Header>Hover (active) squares:</Header>
+      <LogList>
+        {activeCells.map(({ row, col }) => (
+          <Message key={`${row}:${col}`}>
+            row {row} col {col}
+          </Message>
+        ))}
+      </LogList>
+    </div>
   )
 }
 

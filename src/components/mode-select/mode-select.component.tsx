@@ -29,6 +29,7 @@ const ModeSelect = () => {
 
   return (
     <Select
+      placeholder="Pick mode"
       isSearchable={false}
       options={options}
       onChange={handleModeChange}

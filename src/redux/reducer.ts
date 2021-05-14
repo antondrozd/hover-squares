@@ -13,6 +13,7 @@ import { IActions, ICell, IModes } from '../interfaces/common.interfaces'
 interface IState {
   modes: IModes | null
   grid: ICell[]
+  isModeSelected: boolean
   isStarted: boolean
   isLoading: boolean
   error: Error | null
@@ -21,6 +22,7 @@ interface IState {
 const initialState: IState = {
   modes: null,
   grid: [],
+  isModeSelected: false,
   isStarted: false,
   isLoading: true,
   error: null,
@@ -49,6 +51,7 @@ const rootReducer = (state = initialState, action: IActions): IState => {
     case SET_MODE:
       return {
         ...state,
+        isModeSelected: true,
         grid: computeEmptyGrid(action.payload.gridSize),
       }
     case TOGGLE_START:

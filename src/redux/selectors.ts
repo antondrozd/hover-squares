@@ -1,7 +1,9 @@
 import { ICell, IStore } from '../interfaces/common.interfaces'
 
 export const selectModes = (state: IStore) => state.modes
+export const selectIsModeSelected = (state: IStore) => state.isModeSelected
 export const selectGrid = (state: IStore) => state.grid
+export const selectGridSize = (state: IStore) => Math.sqrt(state.grid.length)
 export const selectActiveCells = (state: IStore) =>
   state.grid.reduce((accumulator: Pick<ICell, 'row' | 'col'>[], cell) => {
     if (cell.active) {
