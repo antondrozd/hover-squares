@@ -17,7 +17,7 @@ interface IStyledButtonProps {
 }
 
 export const Button = styled.button<IStyledButtonProps>`
-  min-width: 60px;
+  min-width: 65px;
   padding: 10px 15px;
   border: none;
   font-family: 'Poppins', sans-serif;
